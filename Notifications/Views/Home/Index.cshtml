@@ -1,0 +1,28 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+@section Scripts {
+    <script type="text/javascript" src="~/Scripts/jquery.signalR-0.5.2.js"></script>
+
+    <script type="text/javascript">
+        $(function () {
+            var connection = $.connection('echo');
+
+            connection.received(function (data) {
+                $('#messages').append('<li>' + data + '</li>');
+            });
+
+            connection.start();
+
+            $("#broadcast").click(function () {
+                connection.send($('#msg').val());
+            });
+        });
+    </script>
+}
+
+<h2>Index</h2>
+
+<input id="msg">
+<input id="broadcast" type="button">
+<ul id="messages"></ul>
