@@ -8,10 +8,17 @@
     <script type="text/javascript">
         $(document).ready(function () {
             $('#btnSend').click(function () {
-                $.post('/api/notification', { userId: '1', message: $('#txtMessage').val() });
+                $.post('/api/notification', { userName: $('#txtUserName').val(), message: $('#txtMessage').val() });
             });
         });
     </script>
 }
-<input id="txtMessage" />
+<div>
+    <label for="txtUserName">User Name:</label>
+    <input id="txtUserName" />
+</div>
+<div>
+    <label for="txtMessage">Message:</label>
+    <input id="txtMessage" />
+</div>
 <input type="button" value="Send" id="btnSend" />

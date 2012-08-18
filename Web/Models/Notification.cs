@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace Notifications.Web.Areas.Api.Models
+namespace Notifications.Web.Models
 {
     public class Notification
     {
-        public int UserId { get; set; }
+        public string UserName { get; set; }
         public string Message { get; set; }
     }
 }

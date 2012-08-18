@@ -2,7 +2,8 @@
     ViewBag.Title = "Index";
 }
 @section Scripts {
-    <script type="text/javascript" src="~/Scripts/jquery.signalR-0.5.2.js"></script>
+
+    @Scripts.Render("~/bundles/signalR")
 
     <script type="text/javascript">
         $(function () {
@@ -13,16 +14,10 @@
             });
 
             connection.start();
-
-            $("#broadcast").click(function () {
-                connection.send($('#msg').val());
-            });
         });
     </script>
 }
 
-<h2>Index</h2>
+<h2>Messages</h2>
 
-<input id="msg">
-<input id="broadcast" type="button">
 <ul id="messages"></ul>

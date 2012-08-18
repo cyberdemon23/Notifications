@@ -1,4 +1,5 @@
-﻿using Notifications.Web.Areas.Api.Models;
+﻿using Newtonsoft.Json;
+using Notifications.Web.Models;
 using SignalR.Client;
 using System;
 using System.Collections.Generic;
@@ -17,7 +18,7 @@ namespace Notifications.Web.Areas.Api.Controllers
         {
             var connection = new Connection("http://localhost:1174/echo");
             await connection.Start();
-            await connection.Send(entity.Message);
+            await connection.Send(entity);
             connection.Stop();
         }
     }

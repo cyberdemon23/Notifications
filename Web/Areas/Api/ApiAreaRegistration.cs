@@ -15,11 +15,7 @@ namespace Notifications.Web.Areas.Api
 
         public override void RegisterArea(AreaRegistrationContext context)
         {
-            context.Routes.MapHttpRoute(
-                "DefaultApi",
-                "api/{controller}/{id}",
-                new { id = RouteParameter.Optional }
-            );
+            
         }
     }
 }
