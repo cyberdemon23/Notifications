@@ -16,5 +16,10 @@ namespace Notifications.Web.Controllers
             return View();
         }
 
+        public ActionResult ApiTest()
+        {
+            return View();
+        }
+
     }
 }

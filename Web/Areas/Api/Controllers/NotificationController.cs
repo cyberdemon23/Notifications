@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Notifications.Web.Areas.Api.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -9,31 +10,10 @@ namespace Notifications.Web.Areas.Api.Controllers
 {
     public class NotificationController : ApiController
     {
-        // GET api/notification
-        public IEnumerable<string> Get()
-        {
-            return new string[] { "value1", "value2" };
-        }
-
-        // GET api/notification/5
-        public string Get(int id)
-        {
-            return "value";
-        }
-
         // POST api/notification
-        public void Post([FromBody]string value)
+        public void Post(Notification entity)
         {
-        }
 
-        // PUT api/notification/5
-        public void Put(int id, [FromBody]string value)
-        {
-        }
-
-        // DELETE api/notification/5
-        public void Delete(int id)
-        {
         }
     }
 }

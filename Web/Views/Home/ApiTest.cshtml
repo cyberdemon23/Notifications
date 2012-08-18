@@ -1,0 +1,17 @@
+﻿@{
+    ViewBag.Title = "ApiTest";
+}
+
+<h2>ApiTest</h2>
+
+@section Scripts {
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#btnSend').click(function () {
+                $.post('/api/notification', { userId: '1', message: $('#txtMessage').val() });
+            });
+        });
+    </script>
+}
+<input id="txtMessage" />
+<input type="button" value="Send" id="btnSend" />
