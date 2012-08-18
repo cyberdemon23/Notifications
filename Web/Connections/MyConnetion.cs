@@ -11,7 +11,7 @@ namespace Notifications.Web.Connections
     {
         protected override Task OnConnectedAsync(IRequest request, string connectionId)
         {
-            return Connection.Broadcast("Connection " + connectionId + " connected");
+            return base.OnConnectedAsync(request, connectionId);
         }
         protected override Task OnReceivedAsync(IRequest request, string connectionId, string data)
         {
