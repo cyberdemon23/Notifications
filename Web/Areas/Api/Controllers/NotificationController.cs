@@ -15,6 +15,11 @@ namespace Notifications.Web.Areas.Api.Controllers
     {
         private INotificationSender _notificationSender;
 
+        public NotificationController(INotificationSender notificationSender)
+        {
+            _notificationSender = notificationSender;
+        }
+
         // POST api/notification
         public async Task Post(Notification entity)
         {

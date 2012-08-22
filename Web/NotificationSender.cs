@@ -7,7 +7,7 @@ using System.Web;
 
 namespace Notifications.Web
 {
-    interface INotificationSender
+    public interface INotificationSender
     {
         void Send(string userName, string message);
     }
