@@ -24,5 +24,11 @@ namespace Notifications.Web.Connections
             var recipientConnectionId = _userConnectionRepository.GetConnectionId(notification.UserName);
             return Connection.Send(recipientConnectionId, notification.Message);
         }
+
+        protected override Task OnDisconnectAsync(string connectionId)
+        {
+            _userConnectionRepository.Remove(connectionId);
+           return base.OnDisconnectAsync(connectionId);
+        }
     }
 }

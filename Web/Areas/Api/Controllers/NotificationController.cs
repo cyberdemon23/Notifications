@@ -13,13 +13,12 @@ namespace Notifications.Web.Areas.Api.Controllers
 {
     public class NotificationController : ApiController
     {
+        private INotificationSender _notificationSender;
+
         // POST api/notification
         public async Task Post(Notification entity)
         {
-            var connection = new Connection("http://localhost:1174/echo");
-            await connection.Start();
-            await connection.Send(entity);
-            connection.Stop();
+            _notificationSender.Send(entity.UserName, entity.Message);    
         }
     }
 }
