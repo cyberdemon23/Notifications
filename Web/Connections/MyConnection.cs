@@ -11,18 +11,17 @@ namespace Notifications.Web.Connections
 {
     public class MyConnection : PersistentConnection
     {
-        private static IUserConnectionRepository _userConnectionRepository = new UserConnectionRepository();
+        private readonly IUserConnectionRepository _userConnectionRepository;
+
+        public MyConnection(IUserConnectionRepository userConnectionRepository)
+        {
+            _userConnectionRepository = userConnectionRepository;
+        }
 
         protected override Task OnConnectedAsync(IRequest request, string connectionId)
         {
             _userConnectionRepository.Register(request.User.Identity.Name, connectionId);
             return base.OnConnectedAsync(request, connectionId);
-        }
-        protected override Task OnReceivedAsync(IRequest request, string connectionId, string data)
-        {
-            var notification = JsonConvert.DeserializeObject<Notification>(data);
-            var recipientConnectionId = _userConnectionRepository.GetConnectionId(notification.UserName);
-            return Connection.Send(recipientConnectionId, notification.Message);
         }
 
         protected override Task OnDisconnectAsync(string connectionId)
