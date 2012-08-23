@@ -149,7 +149,6 @@
     <Compile Include="App_Start\DependencyResolverConfig.cs" />
     <Compile Include="Areas\Api\ApiAreaRegistration.cs" />
     <Compile Include="Areas\Api\Controllers\NotificationController.cs" />
-    <Compile Include="App_Start\AutofacSignalRDependencyResolver.cs" />
     <Compile Include="Models\Notification.cs" />
     <Compile Include="Connections\MyConnection.cs" />
     <Compile Include="Controllers\HomeController.cs" />
