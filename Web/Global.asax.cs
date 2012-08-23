@@ -19,22 +19,7 @@ namespace Notifications.Web
     {
         protected void Application_Start()
         {
-            //I would prefer to leave this unpolluted, but I have to because of the way that 
-            //all of the dependency injection isn't consistent and how I have to pass the 
-            //SignalR Dependency Resolver into the MapConnection method
-            var container = GetContainer();
-
-            //MVC 4
-            DependencyResolver.SetResolver(new AutofacDependencyResolver(container));
-
-            //WebApi
-            GlobalConfiguration.Configuration.DependencyResolver = new Autofac.Integration.WebApi.AutofacWebApiDependencyResolver(container);
-
-            //SignalR
-            var signalRDependencyResolver = new AutofacSignalRDependencyResolver(container);
-            GlobalHost.DependencyResolver = signalRDependencyResolver;
-            RouteTable.Routes.MapConnection<MyConnection>("echo", "echo/{*operation}", signalRDependencyResolver);
-
+            DependencyResolverConfig.RegisterDependencyResolvers();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
@@ -42,14 +27,6 @@ namespace Notifications.Web
             AreaRegistration.RegisterAllAreas();
         }
 
-        private IContainer GetContainer()
-        {
-            var configuration = GlobalConfiguration.Configuration;
-            var builder = new ContainerBuilder();
-
-            builder.RegisterType<UserConnectionRepository>().As<IUserConnectionRepository>().SingleInstance();
-
-            return builder.Build();
-        }
+        
     }
 }

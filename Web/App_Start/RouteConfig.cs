@@ -16,6 +16,8 @@ namespace Notifications.Web
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
+            routes.MapConnection<MyConnection>("echo", "echo/{*operation}");
+
             routes.MapHttpRoute(
                 "DefaultApi",
                 "api/{controller}/{id}",

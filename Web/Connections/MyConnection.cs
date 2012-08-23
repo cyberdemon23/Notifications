@@ -13,14 +13,14 @@ namespace Notifications.Web.Connections
     {
         private readonly IUserConnectionRepository _userConnectionRepository;
 
-        public MyConnection()
-        {
-            //SignalR isn't using the DependencyResolver that I'm clearly telling it to use, so this is what I'm doing
-            _userConnectionRepository = (IUserConnectionRepository)GlobalHost.DependencyResolver.GetService(typeof(IUserConnectionRepository));
-        }
+        //public MyConnection()
+        //{
+        //    //SignalR isn't using the DependencyResolver that I'm clearly telling it to use, so this is what I'm doing
+        //    _userConnectionRepository = (IUserConnectionRepository)GlobalHost.DependencyResolver.GetService(typeof(IUserConnectionRepository));
+        //}
 
         public MyConnection(IUserConnectionRepository userConnectionRepository)
-        {
+        {   
             _userConnectionRepository = userConnectionRepository;
         }
 
