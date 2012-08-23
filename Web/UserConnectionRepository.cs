@@ -8,19 +8,13 @@ namespace Notifications.Web
 {
     public interface IUserConnectionRepository
     {
-        string GetConnectionId(string userName);
+        IEnumerable<string> GetConnectionIds(string userName);
         void Register(string userName, string connectionId);
-        void Remove(string connectionId);
+        void Deregister(string connectionId);
     }
 
     public class UserConnectionRepository : IUserConnectionRepository
     {
-        /// <summary>
-        /// I really don't like using this data structure. Initially, I was using a dictionary,
-        /// however on the disconnect all that I have is the connectionId (the value of the dictionary)
-        /// to remove the user from the list. I was unable to find a data structure that was going to do
-        /// exactly what I wanted so I settled on the following, which honestly I despite.
-        /// </summary>
         private readonly List<KeyValuePair<string, string>> _list;
 
         public UserConnectionRepository()
@@ -30,28 +24,17 @@ namespace Notifications.Web
 
         public void Register(string userName, string connectionId)
         {
-            RemoveExisting(userName);
-
             _list.Add(new KeyValuePair<string, string>(userName, connectionId));
         }
 
-        public string GetConnectionId(string userName)
+        public IEnumerable<string> GetConnectionIds(string userName)
         {
-            return _list.Single(x => x.Key == userName).Value;
+            return _list.Where(x => x.Key == userName).Select(x => x.Value).Distinct();
         }
 
-        public void Remove(string userName)
+        public void Deregister(string connectionId)
         {
-            RemoveExisting(userName);
-        }
-
-        private void RemoveExisting(string userName)
-        {
-            var existingItem = _list.SingleOrDefault(x => x.Key == userName);
-            if (existingItem.Equals(default(KeyValuePair<string, string>)))
-            {
-                _list.Remove(existingItem);
-            }
+            _list.RemoveAll(x => x.Value == connectionId);
         }
     }
 }

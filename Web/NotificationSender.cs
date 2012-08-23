@@ -25,9 +25,12 @@ namespace Notifications.Web
 
         public void Send(string userName, string message)
         {
-            var connectionId = _userConnectionRepository.GetConnectionId(userName);
+            var connectionIds = _userConnectionRepository.GetConnectionIds(userName);
             var context = _connectionManager.GetConnectionContext<MyConnection>();
-            context.Connection.Send(connectionId, message);
+            foreach (var connectionId in connectionIds)
+            {
+                context.Connection.Send(connectionId, message);
+            }
         }
     }
 }

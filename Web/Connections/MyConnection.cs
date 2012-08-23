@@ -27,7 +27,7 @@ namespace Notifications.Web.Connections
 
         protected override Task OnDisconnectAsync(string connectionId)
         {
-            _userConnectionRepository.Remove(connectionId);
+            _userConnectionRepository.Deregister(connectionId);
            return base.OnDisconnectAsync(connectionId);
         }
     }
