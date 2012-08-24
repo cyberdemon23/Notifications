@@ -13,16 +13,26 @@ namespace Notifications.Web.Connections
     public class MyConnection : PersistentConnection
     {
         private readonly IUserConnectionRepository _userConnectionRepository;
+        private readonly INotificationRepository _notificationRepository;
 
-        public MyConnection(IUserConnectionRepository userConnectionRepository)
+        public MyConnection(IUserConnectionRepository userConnectionRepository, INotificationRepository notificationRepository)
         {
             _userConnectionRepository = userConnectionRepository;
+            _notificationRepository = notificationRepository;
         }
 
         protected override Task OnConnectedAsync(IRequest request, string connectionId)
         {
-            _userConnectionRepository.Register(request.User.Identity.Name, connectionId);
-            return base.OnConnectedAsync(request, connectionId);
+            var userName = request.User.Identity.Name;
+            _userConnectionRepository.Register(userName, connectionId);
+            var messages = _notificationRepository.Get(userName);
+
+            if (messages == null || messages.Count() == 0)
+            {
+                return base.OnConnectedAsync(request, connectionId);
+            }
+
+            return Connection.Send(connectionId, messages);
         }
 
         protected override Task OnDisconnectAsync(string connectionId)

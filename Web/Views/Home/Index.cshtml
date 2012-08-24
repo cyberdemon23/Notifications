@@ -10,7 +10,9 @@
             var connection = $.connection('echo');
 
             connection.received(function (data) {
-                $('#messages').append('<li>' + data + '</li>');
+                $(data).each(function (index, item) {
+                    $('#messages').append('<li>' + item.Message + '</li>');
+                });
             });
 
             connection.start();

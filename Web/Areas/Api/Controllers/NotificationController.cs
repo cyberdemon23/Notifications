@@ -13,17 +13,17 @@ namespace Notifications.Web.Areas.Api.Controllers
 {
     public class NotificationController : ApiController
     {
-        private INotificationSender _notificationSender;
+        private INotificationQueue _notificationQueue;
 
-        public NotificationController(INotificationSender notificationSender)
+        public NotificationController(INotificationQueue notificationSender)
         {
-            _notificationSender = notificationSender;
+            _notificationQueue = notificationSender;
         }
 
         // POST api/notification
         public async Task Post(Notification entity)
         {
-            _notificationSender.Send(entity.UserName, entity.Message);    
+            _notificationQueue.Enqueue(entity);    
         }
     }
 }
