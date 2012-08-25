@@ -160,8 +160,8 @@
     <Compile Include="App_Start\DependencyResolverConfig.cs" />
     <Compile Include="Areas\Api\ApiAreaRegistration.cs" />
     <Compile Include="Areas\Api\Controllers\NotificationController.cs" />
+    <Compile Include="Connections\NotificationsHub.cs" />
     <Compile Include="Models\Notification.cs" />
-    <Compile Include="Connections\MyConnection.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Global.asax.cs">

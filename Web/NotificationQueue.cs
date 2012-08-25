@@ -29,7 +29,7 @@ namespace Notifications.Web
         public void Enqueue(Notification notification)
         {
             var connectionIds = _userConnectionRepository.GetConnectionIds(notification.UserName);
-            var context = _connectionManager.GetConnectionContext<MyConnection>();
+            var context = _connectionManager.GetHubContext<NotificationsHub>();
             if (connectionIds == null || connectionIds.Count() == 0)
             {
                 _notificationRepository.Insert(notification);
@@ -37,7 +37,7 @@ namespace Notifications.Web
 
             foreach (var connectionId in connectionIds)
             {
-                context.Connection.Send(connectionId, new List<Notification>() { notification });
+                context.Clients[connectionId].notify(new List<Notification>() { notification });
             }
         }
     }

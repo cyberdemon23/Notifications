@@ -27,7 +27,7 @@ namespace Notifications.Web
             //SignalR
             //Trying to override the dependency resolver that autofac was using is causing problems, so we're just going to register
             //the component that we need in the Connections with their default dependency resolver
-            GlobalHost.DependencyResolver.Register(typeof(MyConnection), () => container.Resolve<MyConnection>());
+            GlobalHost.DependencyResolver.Register(typeof(NotificationsHub), () => container.Resolve<NotificationsHub>());
         }
 
         private static IContainer GetContainer()
@@ -35,8 +35,8 @@ namespace Notifications.Web
             var builder = new ContainerBuilder();
 
             builder.RegisterInstance(GlobalHost.ConnectionManager).As<IConnectionManager>();
-            builder.RegisterType<MyConnection>().SingleInstance();
             builder.RegisterType<NotificationController>();
+            builder.RegisterType<NotificationsHub>().SingleInstance();
             builder.RegisterType<NotificationQueue>().As<INotificationQueue>();
             builder.RegisterType<NotificationRepository>().As<INotificationRepository>().SingleInstance();
             builder.RegisterType<UserConnectionRepository>().As<IUserConnectionRepository>().SingleInstance();

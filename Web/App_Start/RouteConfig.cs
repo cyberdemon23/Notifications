@@ -14,7 +14,7 @@ namespace Notifications.Web
     {
         public static void RegisterRoutes(RouteCollection routes)
         {
-            routes.MapConnection<MyConnection>("echo", "echo/{*operation}");
+            routes.MapHubs();
 
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 

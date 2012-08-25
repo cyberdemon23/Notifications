@@ -5,17 +5,25 @@
 
     @Scripts.Render("~/bundles/signalR")
 
+    <script src="signalr/hubs" type="text/javascript"></script>
+
     <script type="text/javascript">
         $(function () {
-            var connection = $.connection('echo');
 
-            connection.received(function (data) {
+            var notificationsHub = $.connection.notificationsHub;
+
+            notificationsHub.notify = function (data) {
                 $(data).each(function (index, item) {
                     $('#messages').append('<li>' + item.Message + '</li>');
                 });
-            });
+            };
 
-            connection.start();
+            $.connection.hub.start()
+                .done(function () {
+                })
+                .fail(function () {
+                    alert("Could not Connect!");
+                });
         });
     </script>
 }
