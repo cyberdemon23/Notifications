@@ -1,7 +1,9 @@
 ﻿using Autofac;
 using Autofac.Integration.Mvc;
+using Newtonsoft.Json;
 using Notifications.Web.Areas.Api.Controllers;
 using Notifications.Web.Connections;
+using Notifications.Web.Models;
 using SignalR;
 using System;
 using System.Collections.Generic;
@@ -27,7 +29,7 @@ namespace Notifications.Web
             //SignalR
             //Trying to override the dependency resolver that autofac was using is causing problems, so we're just going to register
             //the component that we need in the Connections with their default dependency resolver
-            GlobalHost.DependencyResolver.Register(typeof(NotificationsHub), () => container.Resolve<NotificationsHub>());
+            GlobalHost.DependencyResolver.Register(typeof(NotificationHub), () => container.Resolve<NotificationHub>());
         }
 
         private static IContainer GetContainer()
@@ -36,12 +38,14 @@ namespace Notifications.Web
 
             builder.RegisterInstance(GlobalHost.ConnectionManager).As<IConnectionManager>();
             builder.RegisterType<NotificationController>();
-            builder.RegisterType<NotificationsHub>().SingleInstance();
+            builder.RegisterType<NotificationHub>().SingleInstance();
             builder.RegisterType<NotificationQueue>().As<INotificationQueue>();
             builder.RegisterType<NotificationRepository>().As<INotificationRepository>().SingleInstance();
             builder.RegisterType<UserConnectionRepository>().As<IUserConnectionRepository>().SingleInstance();
 
             return builder.Build();
         }
+
+        
     }
 }

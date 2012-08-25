@@ -1,4 +1,5 @@
 ﻿using MongoDB.Bson;
+using Newtonsoft.Json;
 using SignalR.Hubs;
 using System;
 using System.Collections.Generic;
@@ -8,20 +9,27 @@ using System.Web;
 
 namespace Notifications.Web.Connections
 {
-    public class NotificationsHub : Hub, IDisconnect, IConnected
+    public class NotificationHub : Hub, IDisconnect, IConnected
     {
         private readonly IUserConnectionRepository _userConnectionRepository;
         private readonly INotificationRepository _notificationRepository;
 
-        public NotificationsHub(IUserConnectionRepository userConnectionRepository, INotificationRepository notificationRepository)
+        public NotificationHub(IUserConnectionRepository userConnectionRepository, INotificationRepository notificationRepository)
         {
             _userConnectionRepository = userConnectionRepository;
             _notificationRepository = notificationRepository;
         }
 
-        public void Delete(ObjectId messageId)
+        /// <summary>
+        /// Currently, the SignalR code for the JTokenValue is using a hard coded JsonSerializer,
+        /// //and now using the one with the settings that I injected, so for the time being
+        /// //I'm just going to take in a string and then turn it into the objectId
+        /// </summary>
+        /// <param name="messageIdString"></param>
+        public void Remove(string messageId)
         {
-
+            var objectId = new ObjectId(messageId);
+            _notificationRepository.Remove(objectId);
         }
 
         public Task Disconnect()

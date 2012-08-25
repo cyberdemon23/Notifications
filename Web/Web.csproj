@@ -158,9 +158,12 @@
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\DependencyResolverConfig.cs" />
+    <Compile Include="JsonFormatter.cs" />
+    <Compile Include="App_Start\JsonSerializerConfig.cs" />
     <Compile Include="Areas\Api\ApiAreaRegistration.cs" />
     <Compile Include="Areas\Api\Controllers\NotificationController.cs" />
-    <Compile Include="Connections\NotificationsHub.cs" />
+    <Compile Include="Connections\NotificationHub.cs" />
+    <Compile Include="MongoDBObjectIdJsonConverter.cs" />
     <Compile Include="Models\Notification.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />

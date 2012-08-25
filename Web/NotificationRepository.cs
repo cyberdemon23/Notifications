@@ -1,4 +1,5 @@
-﻿using MongoDB.Driver;
+﻿using MongoDB.Bson;
+using MongoDB.Driver;
 using MongoDB.Driver.Builders;
 using Notifications.Web.Models;
 using System;
@@ -12,7 +13,7 @@ namespace Notifications.Web
     {
         void Insert(Notification notification);
         IEnumerable<Notification> Get(string userName);
-
+        void Remove(ObjectId messageId);
     }
     public class NotificationRepository : INotificationRepository
     {
@@ -36,6 +37,12 @@ namespace Notifications.Web
             var query = Query.EQ("UserName", userName);
             var messages = _collection.Find(query);
             return messages;
+        }
+
+
+        public void Remove(ObjectId messageId)
+        {
+            _collection.Remove(Query.EQ("_id", messageId));
         }
     }
 }

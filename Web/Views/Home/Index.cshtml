@@ -4,17 +4,17 @@
 @section Scripts {
 
     @Scripts.Render("~/bundles/signalR")
-
-    <script src="signalr/hubs" type="text/javascript"></script>
+    @Scripts.Render("signalr/hubs")
 
     <script type="text/javascript">
         $(function () {
 
-            var notificationsHub = $.connection.notificationsHub;
+            var notificationHub = $.connection.notificationHub;
 
-            notificationsHub.notify = function (data) {
+            notificationHub.notify = function (data) {
                 $(data).each(function (index, item) {
                     $('#messages').append('<li>' + item.Message + '</li>');
+                    notificationHub.remove(item.Id);
                 });
             };
 

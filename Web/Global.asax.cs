@@ -20,6 +20,7 @@ namespace Notifications.Web
         protected void Application_Start()
         {
             DependencyResolverConfig.RegisterDependencyResolvers();
+            JsonSerializerConfig.RegisterConverters();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
