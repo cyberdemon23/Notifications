@@ -1,5 +1,5 @@
 ﻿using Newtonsoft.Json;
-using Notifications.Web.Models;
+using Notifications.Web.Json;
 using SignalR;
 using System;
 using System.Collections.Generic;

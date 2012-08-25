@@ -9,7 +9,7 @@ using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Notifications.Web
+namespace Notifications.Web.Json
 {
     public class JsonFormatter : MediaTypeFormatter
     {
