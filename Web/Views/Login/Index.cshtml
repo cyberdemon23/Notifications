@@ -1,11 +1,23 @@
 ﻿@{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Log In";
 }
 
-<h2>Login</h2>
+<hgroup class="title">
+    <h1>@ViewBag.Title.</h1>
+</hgroup>
 
-@using (Html.BeginForm())
-{ 
-    @Html.TextBox("userName");
-    <input type="submit" value="Login"/>
+<section id="loginForm">
+@using (Html.BeginForm()) {
+
+    <fieldset>
+        <legend>Log in Form</legend>
+        <ol>
+            <li>
+                @Html.Label("userName", "User Name")
+                @Html.TextBox("userName")
+            </li>
+        </ol>
+        <input type="submit" value="Log in" />
+    </fieldset>
 }
+</section>

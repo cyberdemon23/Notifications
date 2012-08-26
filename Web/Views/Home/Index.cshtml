@@ -24,10 +24,32 @@
                 .fail(function () {
                     alert("Could not Connect!");
                 });
+
+            $('#btnSend').click(function () {
+                $.post('/api/notification', { userName: $('#txtUserName').val(), message: $('#txtMessage').val() });
+            });
         });
     </script>
 }
-
-<h2>Messages</h2>
-
-<ul id="messages"></ul>
+<div>
+    <h2>Received Messages</h2>
+    <h3>Currently logged in as: @User.Identity.Name</h3>
+    <ul id="messages"></ul>
+</div>
+<div>
+    <h2>Send Message</h2>
+    <fieldset>
+        <legend>Post Message Form</legend>
+        <ol>
+            <li>
+                <label for="txtUserName">User Name:</label>
+                <input id="txtUserName" />
+            </li>
+            <li>
+                <label for="txtMessage">Message:</label>
+                <input id="txtMessage" />
+            </li>
+        </ol>
+        <input type="button" value="Send" id="btnSend" />
+    </fieldset>
+</div>
