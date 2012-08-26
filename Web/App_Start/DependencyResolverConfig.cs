@@ -1,6 +1,7 @@
 ﻿using System.Configuration;
 using Autofac;
 using Autofac.Integration.Mvc;
+using Autofac.Integration.WebApi;
 using MongoDB.Driver;
 using Newtonsoft.Json;
 using Notifications.Web.Areas.Api.Controllers;
@@ -43,8 +44,10 @@ namespace Notifications.Web
             builder.Register(c => c.Resolve<MongoServer>().GetDatabase("Notifications"))
                 .As<MongoDatabase>().SingleInstance();
 
+            builder.RegisterApiControllers(typeof (DependencyResolverConfig).Assembly);
+            builder.RegisterControllers(typeof (DependencyResolverConfig).Assembly);
+
             builder.RegisterInstance(GlobalHost.ConnectionManager).As<IConnectionManager>();
-            builder.RegisterType<NotificationController>();
             builder.RegisterType<NotificationHub>().SingleInstance();
             builder.RegisterType<NotificationQueue>().As<INotificationQueue>();
             builder.RegisterType<NotificationRepository>().As<INotificationRepository>().SingleInstance();
