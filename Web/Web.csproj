@@ -162,7 +162,7 @@
     <Compile Include="App_Start\JsonSerializerConfig.cs" />
     <Compile Include="Areas\Api\ApiAreaRegistration.cs" />
     <Compile Include="Areas\Api\Controllers\NotificationController.cs" />
-    <Compile Include="Connections\NotificationHub.cs" />
+    <Compile Include="Hubs\NotificationHub.cs" />
     <Compile Include="Json\MongoDBObjectIdJsonConverter.cs" />
     <Compile Include="Models\Notification.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -173,7 +173,6 @@
     <Compile Include="NotificationRepository.cs" />
     <Compile Include="NotificationQueue.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="UserConnectionRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\FilterConfig.cs" />

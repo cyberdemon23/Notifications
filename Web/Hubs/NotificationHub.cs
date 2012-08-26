@@ -9,14 +9,12 @@ using System.Web;
 
 namespace Notifications.Web.Connections
 {
-    public class NotificationHub : Hub, IDisconnect, IConnected
+    public class NotificationHub : Hub, IConnected
     {
-        private readonly IUserConnectionRepository _userConnectionRepository;
         private readonly INotificationRepository _notificationRepository;
 
-        public NotificationHub(IUserConnectionRepository userConnectionRepository, INotificationRepository notificationRepository)
+        public NotificationHub(INotificationRepository notificationRepository)
         {
-            _userConnectionRepository = userConnectionRepository;
             _notificationRepository = notificationRepository;
         }
 
@@ -25,37 +23,30 @@ namespace Notifications.Web.Connections
         /// //and now using the one with the settings that I injected, so for the time being
         /// //I'm just going to take in a string and then turn it into the objectId
         /// </summary>
-        /// <param name="messageIdString"></param>
+        /// <param name="messageId"></param>
         public void Remove(string messageId)
         {
             var objectId = new ObjectId(messageId);
             _notificationRepository.Remove(objectId);
         }
 
-        public Task Disconnect()
-        {
-            return Task.Factory.StartNew(() =>
-            {
-                _userConnectionRepository.Deregister(Context.ConnectionId);
-            });
-        }
-
         public Task Connect()
         {
-            return SendOutstandingMessages();
+            return RegisterAndSendMessages();
         }
 
         public Task Reconnect(IEnumerable<string> groups)
         {
-            return SendOutstandingMessages();
+            return RegisterAndSendMessages();
         }
 
-        private Task SendOutstandingMessages()
+        private Task RegisterAndSendMessages()
         {
             return Task.Factory.StartNew(() =>
             {
                 var userName = Context.User.Identity.Name;
-                _userConnectionRepository.Register(userName, Context.ConnectionId);
+                Groups.Add(Context.ConnectionId, userName); 
+
                 var notifications = _notificationRepository.Get(userName);
 
                 if (notifications == null || notifications.Count() == 0)
@@ -63,7 +54,7 @@ namespace Notifications.Web.Connections
                     return;
                 }
 
-                Clients[Context.ConnectionId].notify(notifications);
+                Clients[userName].notify(notifications);
                 return;
             });
         }

@@ -41,7 +41,6 @@ namespace Notifications.Web
             builder.RegisterType<NotificationHub>().SingleInstance();
             builder.RegisterType<NotificationQueue>().As<INotificationQueue>();
             builder.RegisterType<NotificationRepository>().As<INotificationRepository>().SingleInstance();
-            builder.RegisterType<UserConnectionRepository>().As<IUserConnectionRepository>().SingleInstance();
 
             return builder.Build();
         }
