@@ -5,26 +5,13 @@
 
     @Scripts.Render("~/bundles/signalR")
     @Scripts.Render("signalr/hubs")
+    @Scripts.Render("~/Scripts/Notifications.js")
 
     <script type="text/javascript">
         $(function () {
 
-            var notificationHub = $.connection.notificationHub;
-
-            notificationHub.notify = function (data) {
-                $(data).each(function (index, item) {
-                    $('#messages').append('<li>' + item.Message + '</li>');
-                    notificationHub.remove(item.Id);
-                });
-            };
-
-            $.connection.hub.start()
-                .done(function () {
-                })
-                .fail(function () {
-                    alert("Could not Connect!");
-                });
-
+            var notification = new Notifications();
+            
             $('#btnSend').click(function () {
                 $.post('/api/notification', { userName: $('#txtUserName').val(), message: $('#txtMessage').val() });
             });
