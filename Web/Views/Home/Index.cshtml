@@ -5,12 +5,12 @@
 
     @Scripts.Render("~/bundles/signalR")
     @Scripts.Render("signalr/hubs")
-    @Scripts.Render("~/Scripts/Notifications.js")
+    @Scripts.Render("~/Scripts/jquery.notifications.js")
 
     <script type="text/javascript">
         $(function () {
 
-            var notification = new Notifications({
+            $.notifications({
                 notify: function (item) {
                     $('#messages').append('<li>' + item.Message + '</li>');
                 }
@@ -24,7 +24,6 @@
 }
 <div>
     <h2>Received Messages</h2>
-    <h3>Currently logged in as: @User.Identity.Name</h3>
     <ul id="messages"></ul>
 </div>
 <div>

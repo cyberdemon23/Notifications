@@ -201,7 +201,7 @@
     </Content>
     <Content Include="Scripts\json2.js" />
     <Content Include="Scripts\json2.min.js" />
-    <Content Include="Scripts\Notifications.js" />
+    <Content Include="Scripts\jquery.notifications.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
