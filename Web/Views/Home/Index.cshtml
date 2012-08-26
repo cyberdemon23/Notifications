@@ -10,8 +10,12 @@
     <script type="text/javascript">
         $(function () {
 
-            var notification = new Notifications();
-            
+            var notification = new Notifications({
+                notify: function (item) {
+                    $('#messages').append('<li>' + item.Message + '</li>');
+                }
+            });
+
             $('#btnSend').click(function () {
                 $.post('/api/notification', { userName: $('#txtUserName').val(), message: $('#txtMessage').val() });
             });
