@@ -15,6 +15,9 @@ namespace Notifications.Web
         {
             var settings = GetJsonSerializerSettings();
 
+            //The custom Json serialization rules aren't plugged into plain MVC 4 yet
+
+            //Web Api
             GlobalConfiguration.Configuration.Formatters.Insert(0, new JsonFormatter(settings));
 
             //SignalR
