@@ -9,10 +9,10 @@
 
     <script type="text/javascript">
         $(function () {
-
+            
             $.notifications({
                 notify: function (item) {
-                    $('#messages').append('<li>' + item.Message + '</li>');
+                    $('#notifications').html(item.Message).slideDown().delay(3000).slideUp();
                 }
             });
 
@@ -22,9 +22,7 @@
         });
     </script>
 }
-<div>
-    <h2>Received Messages</h2>
-    <ul id="messages"></ul>
+<div id="notifications" class="alert alert-info" style="display: none;">
 </div>
 <div>
     <h2>Send Message</h2>
