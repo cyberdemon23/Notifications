@@ -19,11 +19,8 @@ namespace Notifications.Web
     {
         private readonly MongoCollection<Notification> _collection;
 
-        public NotificationRepository()
+        public NotificationRepository(MongoDatabase database)
         {
-            var connectionString = "mongodb://localhost/?safe=true";
-            var server = MongoServer.Create(connectionString);
-            var database = server.GetDatabase("Notifications");
             _collection = database.GetCollection<Notification>("Notifications");
         }
 

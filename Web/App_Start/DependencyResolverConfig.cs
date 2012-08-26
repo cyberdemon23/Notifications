@@ -1,5 +1,7 @@
-﻿using Autofac;
+﻿using System.Configuration;
+using Autofac;
 using Autofac.Integration.Mvc;
+using MongoDB.Driver;
 using Newtonsoft.Json;
 using Notifications.Web.Areas.Api.Controllers;
 using Notifications.Web.Connections;
@@ -29,12 +31,17 @@ namespace Notifications.Web
             //SignalR
             //Trying to override the dependency resolver that autofac was using is causing problems, so we're just going to register
             //the component that we need in the Connections with their default dependency resolver
-            GlobalHost.DependencyResolver.Register(typeof(NotificationHub), () => container.Resolve<NotificationHub>());
+            GlobalHost.DependencyResolver.Register(typeof(NotificationHub), container.Resolve<NotificationHub>);
         }
 
         private static IContainer GetContainer()
         {
             var builder = new ContainerBuilder();
+
+            builder.RegisterInstance(MongoServer.Create(ConfigurationManager.ConnectionStrings["mongo"].ConnectionString))
+                .As<MongoServer>().SingleInstance();
+            builder.Register(c => c.Resolve<MongoServer>().GetDatabase("Notifications"))
+                .As<MongoDatabase>().SingleInstance();
 
             builder.RegisterInstance(GlobalHost.ConnectionManager).As<IConnectionManager>();
             builder.RegisterType<NotificationController>();
