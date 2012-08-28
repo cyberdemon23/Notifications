@@ -1,15 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using SignalR.Hubs;
+﻿using SignalR.Hubs;
 
 namespace Notifications.Web
 {
     public class CurrentPrincipalUserProvider : IUserProvider
     {
-        public string GetId(HubCallerContext context)
+        public string GetId(dynamic caller, HubCallerContext context)
         {
+            var userId = caller.userId;
             return context.User.Identity.Name;
         }
     }

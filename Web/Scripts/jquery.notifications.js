@@ -16,6 +16,8 @@
 
         $.connection.hub.start()
             .done(function () {
+                notificationHub.userId = "wewillneedtoencryptthis";
+                notificationHub.connected();
             })
             .fail(function () {
                 alert("Could not Connect!");

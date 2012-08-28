@@ -4,6 +4,6 @@ namespace Notifications.Web
 {
     public interface IUserProvider
     {
-        string GetId(HubCallerContext context);
+        string GetId(dynamic caller, HubCallerContext context);
     }
 }

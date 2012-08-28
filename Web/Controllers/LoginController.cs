@@ -20,6 +20,7 @@ namespace Notifications.Web.Controllers
         [HttpPost]
         public ActionResult Index(string userName)
         {
+            Session["CurrentUser"] = "TheWorstWay";
             FormsAuthentication.SetAuthCookie(userName, false);
             var url = FormsAuthentication.GetRedirectUrl(userName, false);
             return Redirect(url);
