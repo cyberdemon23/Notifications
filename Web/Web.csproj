@@ -158,6 +158,8 @@
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\DependencyResolverConfig.cs" />
+    <Compile Include="CurrentPrincipalUserNameProvider.cs" />
+    <Compile Include="IUserNameProvider.cs" />
     <Compile Include="Json\JsonFormatter.cs" />
     <Compile Include="App_Start\JsonSerializerConfig.cs" />
     <Compile Include="Areas\Api\ApiAreaRegistration.cs" />

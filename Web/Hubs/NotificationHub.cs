@@ -1,21 +1,20 @@
 ﻿using MongoDB.Bson;
-using Newtonsoft.Json;
 using SignalR.Hubs;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Web;
 
-namespace Notifications.Web.Connections
+namespace Notifications.Web.Hubs
 {
     public class NotificationHub : Hub, IConnected
     {
         private readonly INotificationRepository _notificationRepository;
+        private readonly IUserNameProvider _userProvider;
 
-        public NotificationHub(INotificationRepository notificationRepository)
+        public NotificationHub(INotificationRepository notificationRepository, IUserNameProvider userProvider)
         {
             _notificationRepository = notificationRepository;
+            _userProvider = userProvider;
         }
 
         /// <summary>
@@ -44,7 +43,7 @@ namespace Notifications.Web.Connections
         {
             return Task.Factory.StartNew(() =>
             {
-                var userName = Context.User.Identity.Name;
+                var userName = _userProvider.Get(Context);
                 Groups.Add(Context.ConnectionId, userName); 
 
                 var notifications = _notificationRepository.Get(userName);

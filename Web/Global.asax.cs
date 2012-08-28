@@ -1,6 +1,5 @@
 ﻿using Autofac;
 using Autofac.Integration.Mvc;
-using Notifications.Web.Connections;
 using SignalR;
 using System;
 using System.Collections.Generic;

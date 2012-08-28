@@ -5,7 +5,7 @@ using Autofac.Integration.WebApi;
 using MongoDB.Driver;
 using Newtonsoft.Json;
 using Notifications.Web.Areas.Api.Controllers;
-using Notifications.Web.Connections;
+using Notifications.Web.Hubs;
 using Notifications.Web.Models;
 using SignalR;
 using System;
@@ -51,6 +51,7 @@ namespace Notifications.Web
             builder.RegisterType<NotificationHub>().SingleInstance();
             builder.RegisterType<NotificationQueue>().As<INotificationQueue>();
             builder.RegisterType<NotificationRepository>().As<INotificationRepository>().SingleInstance();
+            builder.RegisterType<CurrentPrincipalUserNameProvider>().As<IUserNameProvider>();
 
             return builder.Build();
         }

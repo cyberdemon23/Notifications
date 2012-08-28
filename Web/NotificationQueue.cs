@@ -1,4 +1,4 @@
-﻿using Notifications.Web.Connections;
+﻿using Notifications.Web.Hubs;
 using Notifications.Web.Models;
 using SignalR;
 using System;
