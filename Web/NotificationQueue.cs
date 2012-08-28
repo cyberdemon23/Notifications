@@ -29,7 +29,7 @@ namespace Notifications.Web
             var context = _connectionManager.GetHubContext<NotificationHub>();
             _notificationRepository.Insert(notification);
 
-            context.Clients[notification.UserName].notify(new List<Notification>() { notification });
+            context.Clients[notification.UserId].notify(new List<Notification>() { notification });
         }
     }
 }

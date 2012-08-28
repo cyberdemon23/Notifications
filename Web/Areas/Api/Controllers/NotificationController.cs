@@ -1,19 +1,12 @@
-﻿using Newtonsoft.Json;
-using Notifications.Web.Models;
-using SignalR.Client;
+﻿using Notifications.Web.Models;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Threading.Tasks;
 using System.Web.Http;
 
 namespace Notifications.Web.Areas.Api.Controllers
 {
     public class NotificationController : ApiController
     {
-        private INotificationQueue _notificationQueue;
+        private readonly INotificationQueue _notificationQueue;
 
         public NotificationController(INotificationQueue notificationSender)
         {
@@ -21,8 +14,9 @@ namespace Notifications.Web.Areas.Api.Controllers
         }
 
         // POST api/notification
-        public async Task Post(Notification entity)
+        public void Post(Notification entity)
         {
+            entity.CreatedDateTime = DateTime.Now;
             _notificationQueue.Enqueue(entity);    
         }
     }

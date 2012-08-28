@@ -14,8 +14,7 @@ namespace Notifications.Web.Areas.Api
         }
 
         public override void RegisterArea(AreaRegistrationContext context)
-        {
-            
+        {   
         }
     }
 }

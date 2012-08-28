@@ -10,7 +10,8 @@ namespace Notifications.Web.Models
     public class Notification
     {
         public ObjectId Id { get; set; }
-        public string UserName { get; set; }
+        public DateTime CreatedDateTime { get; set; }
+        public string UserId { get; set; }
         public string Message { get; set; }
     }
 }

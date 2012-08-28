@@ -12,7 +12,7 @@ namespace Notifications.Web
     public interface INotificationRepository
     {
         void Insert(Notification notification);
-        IEnumerable<Notification> Get(string userName);
+        IEnumerable<Notification> Get(string userId);
         void Remove(ObjectId messageId);
     }
     public class NotificationRepository : INotificationRepository
@@ -29,9 +29,9 @@ namespace Notifications.Web
             _collection.Insert(entity);
         }
 
-        public IEnumerable<Notification> Get(string userName)
+        public IEnumerable<Notification> Get(string userId)
         {
-            var query = Query.EQ("UserName", userName);
+            var query = Query.EQ("UserId", userId);
             var messages = _collection.Find(query);
             return messages;
         }

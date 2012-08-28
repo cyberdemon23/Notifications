@@ -6,9 +6,9 @@ using SignalR.Hubs;
 
 namespace Notifications.Web
 {
-    public class CurrentPrincipalUserNameProvider : IUserNameProvider
+    public class CurrentPrincipalUserProvider : IUserProvider
     {
-        public string Get(HubCallerContext context)
+        public string GetId(HubCallerContext context)
         {
             return context.User.Identity.Name;
         }

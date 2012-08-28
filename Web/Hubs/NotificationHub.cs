@@ -9,9 +9,9 @@ namespace Notifications.Web.Hubs
     public class NotificationHub : Hub, IConnected
     {
         private readonly INotificationRepository _notificationRepository;
-        private readonly IUserNameProvider _userProvider;
+        private readonly IUserProvider _userProvider;
 
-        public NotificationHub(INotificationRepository notificationRepository, IUserNameProvider userProvider)
+        public NotificationHub(INotificationRepository notificationRepository, IUserProvider userProvider)
         {
             _notificationRepository = notificationRepository;
             _userProvider = userProvider;
@@ -43,17 +43,17 @@ namespace Notifications.Web.Hubs
         {
             return Task.Factory.StartNew(() =>
             {
-                var userName = _userProvider.Get(Context);
-                Groups.Add(Context.ConnectionId, userName); 
+                var userId = _userProvider.GetId(Context);
+                Groups.Add(Context.ConnectionId, userId); 
 
-                var notifications = _notificationRepository.Get(userName);
+                var notifications = _notificationRepository.Get(userId);
 
-                if (notifications == null || notifications.Count() == 0)
+                if (notifications == null || !notifications.Any())
                 {
                     return;
                 }
 
-                Clients[userName].notify(notifications);
+                Clients[userId].notify(notifications);
                 return;
             });
         }
